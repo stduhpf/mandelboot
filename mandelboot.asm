@@ -37,7 +37,7 @@ offsety: equ 0
 centerx: equ 160 - offsetx
 centery: equ 100 - offsety
 
-;flag the start of the program in plain to memory since i have free space anyways
+;flag the start of the program in plain text to memory since i have free space anyways
 db "actual start->"
 main:
 ;setup usefull registers

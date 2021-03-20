@@ -1,7 +1,8 @@
 # mandelboot
 
 
-A bios-based NASM bootloader for x86 architecture, drawing the mandelbrot set
+A bios-based NASM bootloader for x86 architecture, drawing the mandelbrot set.
+
 All the code is contanied in the 512 bytes boot sector.
 
 The code itself is 279 bytes long, and could be reduced even more (i got it working with 169 bytes), but since the file has to be 512 bytes long anyways, it doesn't matter.

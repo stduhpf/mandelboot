@@ -16,9 +16,9 @@ jmp  main
     driveNum:           db       0
     reserved:           db       0x00
     signature:          db       0x29
-    volumeID:           dd         0x54428E71
-    volumeLabel:        db      "NO NAME",0
-    fileSysType:        db      "None",0
+    volumeID:           dd       0x54428E71
+    volumeLabel:        db       "NO NAME",0
+    fileSysType:        db       "None",0
 
 ;;CONSTANTS:
 
@@ -36,6 +36,8 @@ offsetx: equ 0
 offsety: equ 0
 centerx: equ 160 - offsetx
 centery: equ 100 - offsety
+
+;flag the start of the program in plain to memory since i have free space anyways
 db "actual start->"
 main:
 ;setup usefull registers
@@ -44,7 +46,6 @@ mov ds, ax
 mov es, ax
 mov ss, ax
 mov sp, 0x7c00
-
 
 
 ;start colored VGA 320x200x256 mode
@@ -168,7 +169,7 @@ startx:
     jmp startx
 endloopx:
 
-;set next figure
+;setup for next figure
 mov al,[r]
 inc al
 mov [r],al
@@ -189,7 +190,6 @@ mov ax, 0x5307
 mov bx, 1
 mov cx, 3
 int 0x15
-
 
 ;switch to text mode
 mov ah, 0
@@ -246,8 +246,8 @@ xc:dw 0
 yc:dw 0
 r: db 0
 
-;add data at the end to see how much space left
+;add plain text at the end to see the limits of the code
 db "<-actual end of code"
 times   510 - ($-$$)    db  0
-;at byte 511-512, boot sector identifier
+;at bytes 511-512, boot sector identifier
 db  0x55,   0xaa

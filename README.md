@@ -11,6 +11,6 @@ The code itself is 279 bytes long, and could be reduced even more (i got it work
 
 To assemble, just use `nasm -f mandelboot.asm -o *.img`
 
-If you want to try on physical x86 compatible hardware, you can use Win32DiskImager to flash it to a USB stick.
+If you want to try on physical x86 compatible hardware, you can use Win32DiskImager (windows) or dd (linux/unix) to flash it to a USB stick.
 
 It's my first real ASM project, and also my first boodloader, feel free to give advice.

@@ -1,24 +1,8 @@
 jmp  main
-;header to allow USB boot on some bios
-    OEMname:            db       "MandelBoot",0
-    bytesPerSector:     dw       512
-    sectPerCluster:     db       1
-    reservedSectors:    dw       1
-    numFAT:             db       2
-    numRootDirEntries:  dw       240
-    numSectors:         dw       5760
-    mediaType:          db       0xf0
-    numFATsectors:      dw       9
-    sectorsPerTrack:    dw       36
-    numHeads:           dw       2
-    numHiddenSectors:   dd       0
-    numSectorsHuge:     dd       0
-    driveNum:           db       0
-    reserved:           db       0x00
-    signature:          db       0x29
-    volumeID:           dd       0x54428E71
-    volumeLabel:        db       "NO NAME",0
-    fileSysType:        db       "None",0
+;Some bioses like to assume USB bootloaders are from floppy disk, and overwrite the first few bytes to fix file systems, which in my case would break code
+;i used to have a fake filesystem header, but just having a bunch of empty bytes at the beginning does the trick
+;i use ones instead of zeroes in case the bios tries to perform a divison, div/0 is a bad thing
+times   0x38    db  1
 
 ;;CONSTANTS:
 
@@ -38,7 +22,7 @@ centerx: equ 160 - offsetx
 centery: equ 100 - offsety
 
 ;flag the start of the program in plain text to memory since i have free space anyways
-db "actual start->"
+;db "actual start->"
 main:
 ;setup usefull registers
 mov ax, 0x07c0
@@ -246,8 +230,8 @@ xc:dw 0
 yc:dw 0
 r: db 0
 
-;add plain text at the end to see the limits of the code
-db "<-actual end of code"
+;add plain text at the end to see the limits of the code in hex view
+;db "<-actual end of code"
 times   510 - ($-$$)    db  0
 ;at bytes 511-512, boot sector identifier
 db  0x55,   0xaa

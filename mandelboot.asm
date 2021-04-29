@@ -12,7 +12,7 @@ hlogn:equ 6
 n: equ 1<<(2*hlogn)
 
 ;scaling factor
-scf equ n*2/150
+scf: equ n*2/150
 n2: equ 2*n
 
 ;coordinates of the center
